@@ -13,10 +13,10 @@ wails_windows*.syso
 winres/
 
 # Legacy artifacts at repo root (not used)
-splash.png
-app.ico
-icon.ico
-icon.png
+/icon.ico
+/splash.png
+/app.ico
+/icon.png
 F90X_EEPROM_Tool.exe
 f90x_eeprom_studio.exe
 F90X_EEPROM_Studio.exe
