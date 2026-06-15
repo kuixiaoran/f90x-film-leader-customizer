@@ -1,0 +1,453 @@
+.ui-stage--fill {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  max-width: none;
+  overflow: hidden;
+}
+
+.ui-stage {
+  position: relative;
+  aspect-ratio: 1921 / 1081;
+  --stage-scale: 1;
+  width: min(calc(100vw - 24px), calc((100vh - var(--app-chrome-h, 294px)) * 1921 / 1081), 1921px);
+  min-width: min(320px, calc(100vw - 24px));
+  min-height: 180px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: transparent;
+  flex: 0 0 auto;
+}
+
+/* Intro: 01-film-bg.png is rendered in AppStage (not CSS fill) */
+.ui-stage--intro {
+  background: transparent;
+  overflow: hidden;
+}
+
+.ui-stage--work {
+  background: transparent;
+}
+
+.scene-layers {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.scene-work {
+  perspective: 1400px;
+  perspective-origin: 78% 52%;
+}
+
+.leader-panel-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform: translateX(0);
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.leader-panel-layer.is-retracted {
+  transform: translateX(calc(var(--leader-slide-x, 230px) * var(--stage-scale, 1)));
+}
+
+.leader-panel-bg {
+  z-index: 0;
+}
+
+.leader-panel-readout {
+  position: absolute;
+  z-index: 1;
+  container-type: size;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+  padding: 0 0 0 10%;
+  color: #ffb800;
+  overflow: visible;
+  transform: translate(
+    calc(var(--leader-text-nudge-x, 0px) * var(--stage-scale, 1)),
+    -2%
+  );
+  --leader-glow:
+    0 0 3px rgba(255, 200, 64, 0.95),
+    0 0 10px rgba(255, 184, 0, 0.72),
+    0 0 22px rgba(255, 160, 0, 0.42);
+}
+
+.leader-panel-label {
+  font-size: 15cqh;
+  line-height: 0.82;
+  letter-spacing: 0.14em;
+  text-shadow: var(--leader-glow);
+}
+
+.leader-panel-value {
+  display: flex;
+  align-items: baseline;
+  gap: 0.12em;
+  margin-top: 11cqh;
+  line-height: 0.82;
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding-right: 0.35em;
+}
+
+.leader-panel-num {
+  font-size: 30cqh;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+  text-shadow: var(--leader-glow);
+  flex-shrink: 0;
+}
+
+.leader-panel-unit {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.08em;
+  font-size: 16cqh;
+  letter-spacing: 0;
+  text-shadow: var(--leader-glow);
+  flex-shrink: 0;
+}
+
+.ui-layer-film-bg {
+  z-index: 0;
+  object-fit: fill;
+}
+
+.ui-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Soft depth — drop-shadow follows PNG alpha, no color glow. */
+.ui-soft-shadow {
+  filter:
+    drop-shadow(0 1px 2px rgba(0, 0, 0, 0.22))
+    drop-shadow(0 4px 10px rgba(0, 0, 0, 0.16));
+}
+
+.ui-body-shadow {
+  filter:
+    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.26))
+    drop-shadow(0 8px 18px rgba(0, 0, 0, 0.18));
+}
+
+.ui-layer-contain {
+  object-fit: contain;
+  object-position: center center;
+}
+
+.ui-hit-layer {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 10;
+}
+
+.ui-hit-layer .ui-layer {
+  pointer-events: none;
+}
+
+.ui-hit-layer:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.work-action-hit {
+  position: absolute;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 10;
+}
+
+.work-action-hit:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.work-action-hit--busy:not(:disabled) {
+  cursor: wait;
+  animation: work-action-busy 1.15s ease-in-out infinite;
+}
+
+.work-chip-art {
+  will-change: transform, filter;
+}
+
+.rear-cover-hinge {
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+@keyframes work-action-busy {
+  0%,
+  100% {
+    opacity: 0.78;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.z-0 {
+  z-index: 0;
+}
+/** Work — comm link during DUMP/MODIFY; below logo/camera/film. */
+.z-work-comm {
+  z-index: 0;
+}
+.z-1 {
+  z-index: 1;
+}
+.z-2 {
+  z-index: 2;
+}
+.z-3 {
+  z-index: 3;
+}
+.z-4 {
+  z-index: 4;
+}
+.z-5 {
+  z-index: 5;
+}
+.z-6 {
+  z-index: 6;
+}
+.z-8 {
+  z-index: 8;
+}
+.z-10 {
+  z-index: 10;
+}
+
+/* Intro — COM port number picker in digit slot beside label artwork */
+.intro-com-panel {
+  position: absolute;
+  z-index: 10;
+  pointer-events: auto;
+  display: flex;
+  align-items: stretch;
+}
+
+.intro-com-picker {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.intro-com-picker-trigger {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: max(calc(2px * var(--stage-scale, 1)), 1px);
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 0 max(calc(3px * var(--stage-scale, 1)), 2px);
+  border: 1px solid rgba(255, 255, 255, 0.88);
+  border-radius: max(calc(3px * var(--stage-scale, 1)), 2px);
+  background: linear-gradient(165deg, #c8c8c8 0%, #7a7a7a 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.35) inset,
+    0 1px 4px rgba(0, 0, 0, 0.22);
+  color: #fff;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.intro-com-picker-trigger:hover:not(:disabled) {
+  border-color: rgba(255, 255, 255, 1);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.22) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.intro-com-picker-trigger:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.intro-com-picker-value {
+  font-size: clamp(10px, 62%, calc(17px * var(--stage-scale, 1)));
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+}
+
+.intro-com-picker-chevron {
+  flex-shrink: 0;
+  width: 0;
+  height: 0;
+  border-left: max(calc(2.5px * var(--stage-scale, 1)), 2px) solid transparent;
+  border-right: max(calc(2.5px * var(--stage-scale, 1)), 2px) solid transparent;
+  border-top: max(calc(3.5px * var(--stage-scale, 1)), 3px) solid rgba(255, 255, 255, 0.9);
+  transform-origin: 50% 35%;
+}
+
+.intro-com-picker-menu {
+  position: absolute;
+  bottom: calc(100% + max(3px * var(--stage-scale, 1), 2px));
+  top: auto;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  margin: 0;
+  padding: max(calc(3px * var(--stage-scale, 1)), 2px);
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: max(calc(2px * var(--stage-scale, 1)), 2px);
+  border-radius: max(calc(5px * var(--stage-scale, 1)), 4px);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background: rgba(34, 34, 34, 0.96);
+  box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.38);
+  backdrop-filter: blur(6px);
+  max-height: min(calc(26px * var(--stage-scale, 1) * 6), 38vh);
+  overflow-x: hidden;
+  overflow-y: auto;
+  transform-origin: bottom center;
+  will-change: transform, opacity;
+}
+
+.intro-com-picker-option {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: max(calc(24px * var(--stage-scale, 1)), 20px);
+  border-radius: max(calc(3px * var(--stage-scale, 1)), 2px);
+  font-size: max(calc(12px * var(--stage-scale, 1)), 10px);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.92);
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.intro-com-picker-option:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.intro-com-picker-option.is-selected {
+  background: rgba(196, 0, 0, 0.85);
+  color: #fff;
+}
+
+.intro-connect-hit {
+  position: absolute;
+  z-index: 9;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.intro-connect-hit:disabled {
+  cursor: not-allowed;
+}
+
+/* Work — film 9 full stage; left --film-mask-w px is blocked (clip away) */
+.film-clip-layer {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 0 0 calc(var(--film-mask-w) / var(--stage-w) * 100%));
+  pointer-events: none;
+}
+
+.film-drag-track {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.film-drag-handle {
+  position: absolute;
+  touch-action: none;
+  pointer-events: auto;
+  cursor: grab;
+  z-index: 8;
+}
+
+.film-drag-handle:active {
+  cursor: grabbing;
+}
+
+.film-slide-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+.scene-intro,
+.scene-work {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.z-intro-1 {
+  z-index: 1;
+}
+.z-intro-2 {
+  z-index: 2;
+}
+.z-intro-3 {
+  z-index: 3;
+}
+.z-intro-4 {
+  z-index: 4;
+}
+.z-intro-5 {
+  z-index: 5;
+}
+.z-intro-6 {
+  z-index: 6;
+}
+
+.intro-comm-link {
+  pointer-events: none;
+}
+
+.app-scene-shell {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}

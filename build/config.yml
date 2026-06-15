@@ -1,0 +1,45 @@
+version: "3"
+
+# Regenerate build assets: wails3 update build-assets -name f90x-film-leader-customizer -config build/config.yml -dir build
+
+info:
+  companyName: "F90X Film Leader Customizer"
+  productName: "F90X Film Leader Customizer"
+  productIdentifier: "com.f90x.film.leader.customizer"
+  description: "F90X film leader length customization via EEPROM 0x169"
+  copyright: "(c) 2026"
+  comments: "F90X film leader (rewind length) customization tool"
+  version: "1.0.0"
+
+dev_mode:
+  root_path: .
+  log_level: warn
+  debounce: 1000
+  ignore:
+    dir:
+      - .git
+      - node_modules
+      - frontend
+      - bin
+    file:
+      - .DS_Store
+      - .gitignore
+      - .gitkeep
+    watched_extension:
+      - "*.go"
+      - "*.js"
+      - "*.ts"
+    git_ignore: true
+  executes:
+    - cmd: wails3 task common:install:frontend:deps
+      type: once
+    - cmd: wails3 task common:dev:frontend
+      type: background
+    - cmd: wails3 build DEV=true
+      type: blocking
+    - cmd: wails3 task common:run
+      type: primary
+
+fileAssociations: []
+
+other: []

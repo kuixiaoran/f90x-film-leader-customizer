@@ -1,0 +1,53 @@
+version: "3"
+
+tasks:
+  go:mod:tidy:
+    summary: Runs go mod tidy
+    internal: true
+    cmds:
+      - go mod tidy
+
+  install:frontend:deps:
+    summary: Install frontend dependencies
+    dir: frontend
+    sources:
+      - package.json
+      - package-lock.json
+    generates:
+      - node_modules
+    cmds:
+      - npm install
+
+  generate:bindings:
+    summary: Generates bindings for the frontend
+    deps:
+      - task: go:mod:tidy
+    cmds:
+      - wails3 generate bindings -ts -clean=true
+
+  build:frontend:
+    label: build:frontend (DEV={{.DEV}})
+    summary: Build the frontend project
+    dir: frontend
+    sources:
+      - "**/*"
+      - exclude: node_modules/**/*
+    generates:
+      - dist/**/*
+    deps:
+      - task: install:frontend:deps
+    cmds:
+      - npm run {{if eq .DEV "true"}}build:dev{{else}}build{{end}}
+
+  dev:frontend:
+    summary: Runs the frontend in development mode
+    dir: frontend
+    deps:
+      - task: install:frontend:deps
+    cmds:
+      - npm run dev
+
+  run:
+    summary: Runs the Go app directly (fallback)
+    cmds:
+      - go run .

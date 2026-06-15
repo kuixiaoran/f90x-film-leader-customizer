@@ -1,0 +1,33 @@
+# Build outputs
+bin/
+build/bin/
+build/frontend/
+frontend/dist/
+frontend/node_modules/
+.task/
+
+# Binaries and generated Windows resources
+*.exe
+rsrc*.syso
+wails_windows*.syso
+winres/
+
+# Legacy artifacts at repo root (not used)
+splash.png
+app.ico
+icon.ico
+icon.png
+F90X_EEPROM_Tool.exe
+f90x_eeprom_studio.exe
+F90X_EEPROM_Studio.exe
+f90x-eeprom-studio.exe
+
+# Logs
+build.log
+build-log.txt
+
+# OS / IDE
+Thumbs.db
+.DS_Store
+*.swp
+.vscode/

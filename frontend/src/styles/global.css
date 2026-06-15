@@ -1,0 +1,423 @@
+:root {
+  color-scheme: light;
+  --bg: #eceef2;
+  --card: #f8f9fc;
+  --ink: #1e2028;
+  --muted: #5c6270;
+  --accent: #c40000;
+  --accent-soft: #2b5cff;
+  --border: #c8ccd6;
+  --radius: 16px;
+  --font-led: "The Led Display St", ui-monospace, monospace;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.font-led {
+  font-family: var(--font-led);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.app-root {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow: hidden;
+  --app-chrome-h: 294px;
+}
+
+.app-root--wails {
+  --app-chrome-h: 294px;
+}
+
+.app-root--wails:has(.dev-toolbar) {
+  --app-chrome-h: 366px;
+}
+
+.app-root:has(.dev-toolbar):not(.app-root--wails) {
+  --app-chrome-h: 366px;
+}
+
+/* Wails desktop — transparent letterbox when html.app-wails-transparent is set. */
+html.app-wails-transparent,
+html.app-wails-transparent body,
+html.app-wails-transparent #root,
+html.app-wails-transparent .app-root,
+html.app-wails-transparent .app-stage,
+html.app-wails-transparent .app-scene-shell,
+html.app-wails-transparent .app-scene-fill-host {
+  background: rgba(0, 0, 0, 0);
+}
+
+.app-root--wails-fill .app-stage {
+  padding: 0;
+}
+
+.app-root--wails-fill .app-scene-shell {
+  align-items: stretch;
+  justify-content: stretch;
+  overflow: hidden;
+}
+
+.app-scene-fill-host {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.app-stage {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  padding: 8px 12px 12px;
+}
+
+.app-stage > .app-scene-shell {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+.error-banner {
+  position: fixed;
+  left: 50%;
+  bottom: 180px;
+  transform: translateX(-50%);
+  background: #3a1010;
+  color: #ffd9d9;
+  padding: 10px 16px;
+  border-radius: 10px;
+  max-width: 90vw;
+  z-index: 20;
+}
+
+.app-chrome {
+  display: grid;
+  grid-template-columns: minmax(300px, 44%) 1fr;
+  align-items: stretch;
+  height: var(--app-chrome-h);
+  min-height: 0;
+  border-top: 1px solid #3a3218;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 30;
+  pointer-events: auto;
+}
+
+.advanced-panel,
+.log-panel {
+  height: 100%;
+  min-height: 0;
+  max-height: none;
+}
+
+.advanced-panel {
+  background: #060605;
+  color: #c9b86a;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 0;
+  border-right: 1px solid #2a2412;
+  box-shadow: inset 0 1px 0 rgba(232, 200, 74, 0.04);
+}
+
+.advanced-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 28px;
+  box-sizing: border-box;
+  padding: 5px 8px 5px 12px;
+  font: 11px/1.2 ui-monospace, Consolas, monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #9a8440;
+  border-bottom: 1px solid #241f10;
+  background: #080806;
+}
+
+.advanced-panel-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  flex-shrink: 0;
+  justify-content: flex-end;
+}
+
+.advanced-panel-btn {
+  border: 1px solid #4a4020;
+  border-radius: 3px;
+  background: #12110c;
+  color: #c9ab4a;
+  font: 10px/1 ui-monospace, Consolas, monospace;
+  letter-spacing: 0.06em;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.advanced-panel-btn:hover:not(:disabled) {
+  background: #1c1910;
+  color: #f0d060;
+}
+
+.advanced-panel-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.advanced-panel-btn--accent {
+  border-color: #6a5020;
+  color: #ffd080;
+}
+
+.advanced-panel-body {
+  min-height: 0;
+  overflow: hidden;
+  padding: 6px 8px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.advanced-panel-empty {
+  margin: 0;
+  font: 11px/1.5 ui-monospace, Consolas, monospace;
+  color: #7a6830;
+}
+
+.advanced-panel-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 10px;
+  margin: 0;
+  flex-shrink: 0;
+  font: 10px/1.35 ui-monospace, Consolas, monospace;
+}
+
+.advanced-panel-stats dt {
+  margin: 0;
+  color: #7a6830;
+}
+
+.advanced-panel-stats dd {
+  margin: 0;
+  color: #f0d060;
+  font-variant-numeric: tabular-nums;
+}
+
+.advanced-panel-stats dd.is-ok {
+  color: #8fd48f;
+}
+
+.advanced-panel-stats dd.is-bad {
+  color: #ff9a8a;
+}
+
+.advanced-panel-hex {
+  margin: 0;
+  flex: 1;
+  min-height: 0;
+  font: 10px/1.35 ui-monospace, Consolas, "Courier New", monospace;
+  color: #d4bc62;
+  white-space: pre;
+  overflow: auto;
+}
+
+.log-panel {
+  border-top: none;
+  background: #040403;
+  color: #e8c84a;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  box-shadow: inset 0 1px 0 rgba(232, 200, 74, 0.06);
+}
+
+.log-panel-head {
+  display: flex;
+  align-items: center;
+  min-height: 28px;
+  box-sizing: border-box;
+  padding: 5px 8px 5px 12px;
+  font: 11px/1.2 ui-monospace, Consolas, monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #9a8440;
+  border-bottom: 1px solid #241f10;
+  background: #080806;
+  position: relative;
+  z-index: 1;
+}
+
+.log-panel-head--wails {
+  gap: 10px;
+  padding: 0 6px 0 12px;
+}
+
+.log-panel-head-label {
+  flex-shrink: 0;
+  --wails-draggable: no-drag;
+}
+
+.log-panel-head-locale {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+  --wails-draggable: no-drag;
+  position: relative;
+  z-index: 3;
+}
+
+.log-panel-locale-btn {
+  min-width: 22px;
+  height: 18px;
+  border: 1px solid #4a4020;
+  border-radius: 2px;
+  background: #0e0d08;
+  color: #7a6830;
+  font: 10px/1 ui-monospace, Consolas, monospace;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  padding: 0 4px;
+  --wails-draggable: no-drag;
+  position: relative;
+  z-index: 2;
+}
+
+.log-panel-locale-btn.is-active {
+  color: #f0d060;
+  border-color: #6a5a28;
+  background: #1a1810;
+}
+
+.log-panel-locale-btn:hover {
+  color: #f0d060;
+  border-color: #6a5a28;
+}
+
+.log-panel-head-drag {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  --wails-draggable: drag;
+  color: #7a6830;
+  font: 11px/1 ui-monospace, Consolas, monospace;
+  letter-spacing: 0.1em;
+  user-select: none;
+}
+
+.log-panel-head-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  --wails-draggable: no-drag;
+}
+
+.log-panel-head-btn {
+  width: 28px;
+  height: 20px;
+  border: 1px solid #4a4020;
+  border-radius: 3px;
+  background: #12110c;
+  color: #c9ab4a;
+  font: 12px/1 ui-monospace, Consolas, monospace;
+  cursor: pointer;
+  padding: 0;
+}
+
+.log-panel-head-btn:hover {
+  background: #1c1910;
+  color: #f0d060;
+  border-color: #6a5a28;
+}
+
+.log-panel-head-btn--close:hover {
+  background: #3a1410;
+  border-color: #8a3020;
+  color: #ffb0a0;
+}
+
+.log-panel-body {
+  margin: 0;
+  padding: 8px 12px;
+  font: 12px/1.5 ui-monospace, Consolas, "Courier New", monospace;
+  color: #f0d060;
+  text-shadow: 0 0 1px rgba(240, 208, 96, 0.25);
+  overflow: auto;
+  white-space: pre-wrap;
+}
+
+.log-panel-body::selection {
+  background: #4a4018;
+  color: #fff8c8;
+}
+
+.dev-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #1a1d24;
+  color: #c8cdd8;
+  border-bottom: 1px solid #2e3340;
+  flex-wrap: wrap;
+}
+
+.dev-toolbar-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffb454;
+  margin-right: 4px;
+}
+
+.dev-toolbar-btn {
+  border: 1px solid #3d4454;
+  background: #252932;
+  color: inherit;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.dev-toolbar-btn:hover {
+  background: #2f3542;
+}
+
+.dev-toolbar-btn.is-active {
+  border-color: #ffb454;
+  color: #ffe6c2;
+}
