@@ -30,7 +30,7 @@ func ParseIdentity(resp []byte) (ModelKind, byte, bool) {
 func ModelName(m ModelKind) string {
 	switch m {
 	case ModelF90XN90s:
-		return "F90X / N90s"
+		return "F90X/N90s"
 	case ModelF90N90:
 		return "F90 / N90"
 	default:
@@ -45,5 +45,5 @@ type UnsupportedCameraError struct {
 }
 
 func (e *UnsupportedCameraError) Error() string {
-	return "检测到 " + ModelName(e.Model) + "，本工具仅支持 F90X / N90s"
+	return "检测到 " + ModelName(e.Model) + "，本工具仅支持 F90X/N90s"
 }

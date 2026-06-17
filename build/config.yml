@@ -3,13 +3,13 @@ version: "3"
 # Regenerate build assets: wails3 update build-assets -name f90x-film-leader-customizer -config build/config.yml -dir build
 
 info:
-  companyName: "F90X Film Leader Customizer"
-  productName: "F90X Film Leader Customizer"
+  companyName: "F90X/N90s Film Leader Customizer"
+  productName: "F90X/N90s Film Leader Customizer"
   productIdentifier: "com.f90x.film.leader.customizer"
-  description: "F90X film leader length customization via EEPROM 0x169"
+  description: "F90X/N90s film leader length customization via EEPROM 0x169"
   copyright: "(c) 2026"
-  comments: "F90X film leader (rewind length) customization tool"
-  version: "1.0.0"
+  comments: "F90X/N90s film leader (rewind length) customization tool"
+  version: "1.0.1"
 
 dev_mode:
   root_path: .

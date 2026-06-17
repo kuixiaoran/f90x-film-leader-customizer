@@ -69,7 +69,7 @@ export function LogPanel() {
         </div>
         {wails ? (
           <>
-            <div className="log-panel-head-drag">F90X Film Leader Customizer</div>
+            <div className="log-panel-head-drag">F90X/N90s Film Leader Customizer</div>
             <div className="log-panel-head-controls">
               <button
                 type="button"

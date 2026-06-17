@@ -1,4 +1,4 @@
-# F90X Film Leader Customizer
+# F90X/N90s Film Leader Customizer
 
 [English](#english) · [中文](#中文) · [日本語](#日本語)
 
@@ -8,7 +8,7 @@ Pre-built Windows app: [Releases](https://github.com/kuixiaoran/f90x-film-leader
 
 ## English
 
-**F90X Film Leader Customizer** is a Windows desktop tool that adjusts how much film is left outside the canister after rewind (film leader length) on the Nikon F90X. It writes EEPROM address **0x169** over a serial link.
+**F90X/N90s Film Leader Customizer** is a Windows desktop tool that adjusts how much film is left outside the canister after rewind (film leader length) on the Nikon **F90X / N90s** (same camera, regional names). It writes EEPROM address **0x169** over a serial link.
 
 **What it does**
 
@@ -21,7 +21,7 @@ Pre-built Windows app: [Releases](https://github.com/kuixiaoran/f90x-film-leader
 - This **modifies camera EEPROM**. Use at your own risk.
 - **Dump first** and keep the file as a backup.
 - Connect only when the camera is ready; do not open the same COM port in other software while this app is connected.
-- Requires a working F90X serial/EEPROM link (correct cable, adapter, and port).
+- Requires a working **F90X / N90s** serial/EEPROM link (correct cable, adapter, and port).
 
 **Serial adapter (especially CH340)**
 
@@ -36,7 +36,7 @@ If you use a USB–serial module, **turn off the Windows FIFO receive/transmit b
 
 ## 中文
 
-**F90X 胶片回卷长度定制工具**，用于调整尼康 F90X 倒片后留在片盒外的胶片长度（留片头）。通过串口写入 EEPROM 地址 **0x169**。
+**F90X/N90s 胶片回卷长度定制工具**，用于调整尼康 **F90X / N90s**（同一机型，不同地区命名）倒片后留在片盒外的胶片长度（留片头）。通过串口写入 EEPROM 地址 **0x169**。
 
 **能做什么**
 
@@ -49,7 +49,7 @@ If you use a USB–serial module, **turn off the Windows FIFO receive/transmit b
 - 本工具会**修改相机 EEPROM**，请自行承担风险。
 - 操作前请先 **Dump** 并保存备份文件。
 - 请在相机状态正常时连接；软件运行期间**不要用其他程序占用同一串口**。
-- 需确保 F90X 串口/EEPROM 连接正常（线缆、转接模块、端口均正确）。
+- 需确保 **F90X / N90s** 串口/EEPROM 连接正常（线缆、转接模块、端口均正确）。
 
 **串口模块（尤其 CH340）**
 
@@ -64,7 +64,7 @@ If you use a USB–serial module, **turn off the Windows FIFO receive/transmit b
 
 ## 日本語
 
-**F90X フィルムリーダー調整ツール**は、Nikon F90X の巻き戻し後にカートリッジ外へ出すフィルム余長（リーダー長）を変更する Windows 用アプリです。シリアル経由で EEPROM アドレス **0x169** に書き込みます。
+**F90X/N90s フィルムリーダー調整ツール**は、Nikon **F90X / N90s**（同一機種、地域による名称差）の巻き戻し後にカートリッジ外へ出すフィルム余長（リーダー長）を変更する Windows 用アプリです。シリアル経由で EEPROM アドレス **0x169** に書き込みます。
 
 **できること**
 
@@ -77,7 +77,7 @@ If you use a USB–serial module, **turn off the Windows FIFO receive/transmit b
 - カメラの **EEPROM を変更**します。自己責任でご利用ください。
 - 作業前に必ず **Dump** してバックアップを保存してください。
 - カメラの状態が整ってから接続し、本アプリ使用中は**同じ COM ポートを他のソフトで開かない**でください。
-- F90X のシリアル/EEPROM 接続（ケーブル、アダプタ、ポート）が正常である必要があります。
+- **F90X / N90s** のシリアル/EEPROM 接続（ケーブル、アダプタ、ポート）が正常である必要があります。
 
 **シリアルアダプタ（特に CH340）**
 

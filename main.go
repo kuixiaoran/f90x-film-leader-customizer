@@ -26,8 +26,8 @@ func main() {
 	}
 
 	app := application.New(application.Options{
-		Name:        "F90X Film Leader Customizer",
-		Description: "F90X film leader length customization via EEPROM 0x169",
+		Name:        "F90X/N90s Film Leader Customizer",
+		Description: "F90X/N90s film leader length customization via EEPROM 0x169",
 		Assets: application.AssetOptions{
 			Handler: application.AssetFileServerFS(distFS),
 		},
@@ -37,7 +37,7 @@ func main() {
 	app.RegisterService(application.NewService(studio))
 
 	app.Window.NewWithOptions(application.WebviewWindowOptions{
-		Title:               "F90X Film Leader Customizer",
+		Title:               "F90X/N90s Film Leader Customizer",
 		Width:               winWidth,
 		Height:              winHeight,
 		MinWidth:            720,
